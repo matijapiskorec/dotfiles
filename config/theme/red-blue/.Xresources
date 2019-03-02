@@ -1,0 +1,50 @@
+
+! Two-color red-blue color theme
+! First are assumed default colors, second are actual colors
+
+! special
+*.foreground:   #ffffff
+*.background:   #000000
+*.cursorColor:  #ffffff
+
+! black - black and gray
+*.color0:       #000000
+*.color8:       #aaaaaa
+
+! red - red
+*.color1:       #e51a1a
+*.color9:       #e51a1a
+
+! green - red
+*.color2:       #e51a1a
+*.color10:      #e51a1a
+
+! yellow - blue
+*.color3:       #4b96eb
+*.color11:      #4b96eb
+
+! blue - blue
+*.color4:       #4b96eb
+*.color12:      #4b96eb
+
+! magenta - blue
+*.color5:       #4b96eb
+*.color13:      #4b96eb
+
+! cyan - light blue
+*.color6:       #86b5eb
+*.color14:      #86b5eb
+
+! white - white
+*.color7:       #ffffff
+*.color15:      #ffffff
+
+URxvt*foreground:   #ffffff
+URxvt*background:   [95]#000000
+
+! Black color that will not be affected by bold highlighting.
+*.color66: #0a0a0a
+*color66:  #0a0a0a
+
+! Set depth to make transparency work.
+URxvt*depth: 32

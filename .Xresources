@@ -1,0 +1,22 @@
+URxvt*scrollBar: false
+URxvt*colorUL: yellow
+URxvt*underlineColor: yellow
+URxvt*font: xft:Hack:size=8
+
+#include "config/theme/red-blue/.Xresources"
+
+! Default fallback, in case themes above are not working
+!URxvt*foreground: White
+!URxvt*background: rgba:0000/0000/0200/c800
+!URxvt*background:   [95]#0a0a0a
+!URxvt*depth: 32
+
+!! Perl extensions
+URxvt*perl-ext: default,url-select,clipboard
+
+URxvt*keysym.Shift-Control-V: perl:clipboard:paste
+URxvt*keysym.Shift-Control-C: perl:clipboard:copy
+
+! Disable stupid Ctrl-Shift feature
+URxvt.iso14755: false
+URxvt.iso14755_52: false
