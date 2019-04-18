@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# Bash functions using fzf for efficient file search and navigation
+
+# List Latex projects and open appropriate .tex file in text editor
+doc () {
+	latexdir=$HOME/doc/latex/
+	latexproject=$(find $latexdir -maxdepth 1 -type d | sed "s|$latexdir||g" | fzf --height 40% --reverse)
+	subl -n -a $latexdir$latexproject/ $latexdir$latexproject/*.tex
+	zathura --fork $latexdir$latexproject/*.pdf
+	cd $latexdir$latexproject/
+}
+
+# List Arch notes and open them in text editor
+arch () {
+	find ~/doc/note/archlinux-usb/*.md -type f -printf "'%p'\n" | fzf --height 40% --reverse | xargs -r subl
+}
+
+# List installed packages and upon selection show info
+package () {
+	pacman -Qe | fzf --height 40% --reverse | awk "{print \$1}" | xargs -r pacman -Qi
+}
+
+# List books and upon selection open them in pdf reader
+book () {
+	bookdir=$HOME/doc/book/
+	bookname=$(find $bookdir -type f | sed "s|$bookdir||g" | fzf --height 40% --reverse)
+	zathura --fork $bookdir$bookname
+}
+
+# If script is run without arguments the fuzzy finder is run on all of the notes
+# If there is any argument it is taken as the title of the new note
+note () {
+	notedir=$HOME/doc/note/evernote/
+	if [ -z "$1" ]
+	  then
+		find $notedir -type f | sed "s|$notedir||g" | fzf --height 40% --reverse | xargs -r -I {} subl $notedir{}
+	  else
+	    time=$(date +"%b %d %Y %H:%M:%S")
+	    printf "Title: $1\nDate: $time\nKeywords:\n\n# $1\n" > $notedir"$1".md
+	    subl $notedir"$1".md
+	fi
+}
+
+# Search pacman remote database for a package matching search term, then query it locally if it is installed
+pacfind () {
+	pacman -Ss "$1" | sed '0~2d' | fzf --height 40% --reverse | awk "{print \$1}" | sed "s|.*/||g" | xargs -r pacman -Si
+}
+
+# Choose a kernel then run jupyter notebook server in notebook directory
+notebook () {
+	notebookdir=$HOME/dev/notebook/
+	envdir=$(find $HOME/dev/env/ -maxdepth 1 -type d | fzf --height 40% --reverse)
+	source $envdir/bin/activate
+	nohup jupyter notebook --notebook-dir=$notebookdir &> $HOME/tmp/log/nohup.out &
+}

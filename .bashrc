@@ -16,9 +16,7 @@ alias su='su --login' # clears env variables so there are no git errors
 alias grep-color='grep --color=always -nRi' # colors, line numbers, recursive, follow symbolic links, ignore case
 alias now='date +%Y%m%d%H%M' # useful for adding to filenames with $(now)
 alias xc='xclip -selection clipboard'
-alias note='subl -n --project ~/config/sublime/evernote.sublime-project'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/dev/repo/dotfiles --work-tree=$HOME'
-# alias diff='colordiff'
 
 # Cool colored prompt (git removed because we have it bellow)
 # https://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors
@@ -68,3 +66,6 @@ export PATH="$PATH:$HOME/.scripts"
 export PATH="$PATH:$HOME/bin"
 
 export EDITOR='subl --wait'
+
+# Source fzf scripts
+source $HOME/.scripts/fzfscripts
