@@ -28,6 +28,13 @@ book () {
 	zathura --fork $bookdir$bookname
 }
 
+# List articles and upon selection open them in pdf reader
+article () {
+	articledir=$HOME/doc/article/
+	articlename=$(find $articledir -type f | sed "s|$articledir||g" | fzf --height 40% --reverse)
+	zathura --fork "$articledir$articlename"
+}
+
 # If script is run without arguments the fuzzy finder is run on all of the notes
 # If there is any argument it is taken as the title of the new note
 note () {
