@@ -25,7 +25,7 @@ package () {
 book () {
 	bookdir=$HOME/doc/book/
 	bookname=$(find $bookdir -type f | sed "s|$bookdir||g" | fzf --height 40% --reverse)
-	zathura --fork $bookdir$bookname
+	zathura --fork "$bookdir$bookname"
 }
 
 # List articles and upon selection open them in pdf reader
