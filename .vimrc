@@ -18,6 +18,13 @@ set ignorecase
 let g:powerline_pycmd="py3"
 let g:airline_theme="dark"
 let g:airline_powerline_fonts=1
+let g:airline_theme="minimalist" " try them out with :AirlineTheme <Tab>
+
+" Automatically displays all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+
+" Customize section with the line and column numbers
+let g:airline_section_z = '%3p%% %l/%L:%c'
 
 let t_Co=256
 
