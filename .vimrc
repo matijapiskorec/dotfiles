@@ -1,11 +1,48 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set encoding=utf8
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Put all your plugins here
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'sjl/badwolf'
+Plugin 'tomasr/molokai'
+" Plugin 'itchyny/lightline.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 
 " So that the airline status bar is always present
 set laststatus=2
 
 " syntax enable
 syntax on
-" colorscheme monokai
-colorscheme molokai
+colorscheme badwolf " molokai
 
 set number
 set linebreak
@@ -15,7 +52,7 @@ set incsearch
 set smartcase
 set ignorecase
 
-let g:powerline_pycmd="py3"
+" let g:powerline_pycmd="py3"
 let g:airline_theme="dark"
 let g:airline_powerline_fonts=1
 let g:airline_theme="minimalist" " try them out with :AirlineTheme <Tab>
@@ -54,10 +91,20 @@ set display=lastline
 " Highlight searches
 set hlsearch
 
+" We see the mode in the statusline so we don't need it here
+set noshowmode
+
+" Show current command as it is being typed
+set showcmd
+
+" Autosource .vimrc as soon as you save it!
+autocmd BufWritePost .vimrc source %
+
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
+" set runtimepath^=~/.vim/bundle/lightline.vim
 
 " Move vertically by visual line
 nnoremap j gj
@@ -75,6 +122,16 @@ augroup python_files
     autocmd FileType Python set autoindent 
     autocmd FileType Python set shiftwidth=4 " text intendation in columns 
 augroup END
+
+" An alternative python options
+" au BufNewFile,BufRead *.py
+"     \ set tabstop=4
+"     \ set softtabstop=4
+"     \ set shiftwidth=4
+"     \ set textwidth=79
+"     \ set expandtab
+"     \ set autoindent
+"     \ set fileformat=unix
 
 " Change the cursor in different modes
 " Ps = 0  -> blinking block.
@@ -99,4 +156,12 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " Set vertical divider
 set fillchars=vert:\ ,fold:-
 " highlight VertSplit guibg=Orange guifg=Black ctermbg=6 ctermfg=0
+
+" Disable arrow movement, resize splits instead.
+nnoremap <Up>    :resize +2<CR>
+nnoremap <Down>  :resize -2<CR>
+nnoremap <Left>  :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+
+let python_highlight_all=1
 
