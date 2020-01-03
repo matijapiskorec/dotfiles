@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Search within all notes and open them in vim on appropriate line
+
+if [ -z "$1" ]
+then
+	echo "Use search with one of the options note or arch!"
+else
+	case "$1" in
+		note)
+			notedir=$HOME/doc/note/evernote/
+			;;
+		arch)
+			notedir=$HOME/doc/note/archlinux-usb/
+			;;
+		*)
+			notedir=$HOME/doc/note/evernote/
+			;;
+	esac
+
+	# Fuzzy search within ALL lines on all notes
+	header="Searching notes within $notedir"
+	line=$(ag '\w' $notedir | sed "s|$notedir||g" | fzf --height 40% --reverse --exact --header="$header")
+
+	notename=$(echo "$line" | cut -d: -f1)
+	linenumber=$(echo "$line" | cut -d: -f2)
+
+	# If there is any selection open the note in vim on appropriate line
+	if [ -n "$notename" ]; then vim +$linenumber $notedir"$notename"; fi
+fi
+
