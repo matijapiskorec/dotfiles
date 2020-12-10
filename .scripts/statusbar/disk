@@ -16,4 +16,4 @@
 
 DIR="${BLOCK_INSTANCE:-$HOME}"
 
-printf "%s" "$(df -h "$DIR" | awk ' /[0-9]/ {print $3 " / " $2}')"
+df -h "$DIR" | awk ' /[0-9]/ {print $3 " / " $2}'

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# List Arch notes and open them in text editor
+pacman -Qe | fzf --height 40% --reverse | awk "{print \$1}" | xargs -r pacman -Qi

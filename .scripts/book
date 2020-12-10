@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# List books and upon selection open them in pdf reader
+bookdir=$HOME/doc/book/
+bookname=$(find $bookdir -type f \( -name "*.pdf" -o -name "*.epub" -o -name "*.mobi" \) -printf '%T@ %p\n' | sort -nr | sed 's|^[0-9]*\.[0-9]* ||g' | sed "s|$bookdir||g" | fzf --height 40% --reverse --exact)
+if [ -n "$bookname" ]; then zathura --fork "$bookdir$bookname" &>/dev/null ; fi

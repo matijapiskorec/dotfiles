@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Search pacman remote database for a package matching search term, then query it locally if it is installed
+pacman -Ss "$1" | sed '0~2d' | fzf --height 40% --reverse | awk "{print \$1}" | sed "s|.*/||g" | xargs -r pacman -Si

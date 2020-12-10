@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Show the list of folders in media/photo with fuzzy finder and open selected folder in sxiv
+
+filename=$(find $HOME/media/photo/* -type d | sed "s|$HOME/media/photo/||g" | fzf --height 40% --reverse)
+sxiv "$HOME/media/photo/$filename" &

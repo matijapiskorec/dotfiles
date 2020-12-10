@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# If script is run without arguments the fuzzy finder is run on all of the notes
+# If there is any argument it is taken as the title of the new note
+notedir=$HOME/doc/note/evernote/
+if [ -z "$1" ]
+then
+  notename=$(find $notedir -type f -printf '%T@ %p\n' | sort -nr | sed 's|^[0-9]*\.[0-9]* ||g' | sed "s|$notedir||g" | fzf --height 40% --reverse --exact)
+  if [ -n "$notename" ]; then vim $notedir"$notename"; fi
+else
+  time=$(date +"%b %d %Y %H:%M:%S")
+  printf "Title: $1\nDate: $time\nKeywords:\n\n# $1\n" > $notedir"$1".md
+  vim $notedir"$1".md
+fi

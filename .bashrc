@@ -17,6 +17,9 @@ alias grep-color='grep --color=always -nRi' # colors, line numbers, recursive, f
 alias now='date +%Y%m%d%H%M' # useful for adding to filenames with $(now)
 alias xc='xclip -selection clipboard'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/dev/repo/dotfiles --work-tree=$HOME'
+alias exa='exa -l --git'
+alias tsd='transmission-daemon'
+alias tsr='transmission-remote'
 
 # Cool colored prompt (git removed because we have it bellow)
 # https://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors
@@ -27,7 +30,7 @@ function color_my_prompt {
     local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
     local __prompt_tail="\n\[\033[34m\]>"
     local __last_color="\[\033[00m\]"
-    #export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+    # export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
     export PS1="$__user_and_host $__cur_location $__prompt_tail$__last_color "
 }
 color_my_prompt
@@ -65,7 +68,9 @@ export PATH="$PATH:$HOME/.scripts"
 # Add local ~/bin folder to PATH
 export PATH="$PATH:$HOME/bin"
 
-export EDITOR='subl --wait'
+# export EDITOR='subl --wait'
+export EDITOR=vim
+export NNN_OPENER=rifle
 
 # Source fzf scripts
-source $HOME/.scripts/fzfscripts
+# source $HOME/.scripts/fzfscripts

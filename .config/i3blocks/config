@@ -45,13 +45,18 @@ interval=30
 [iface]
 interval=10
 separator=false
-label=
+# label= 
 
 [wifi]
 interval=10
-separator=false
-label=
+# separator=false # Uncomment after you fix the bandwidth block!
+label= 
 
+# NOT WORKING AFTER 1.5 UPDATE!
+# https://github.com/vivien/i3blocks/releases
+# The package does not include default scripts anymore. All scripts have been moved to the i3blocks-contrib repository. The i3blocks repository only contains the core C program from now on, as well as a minimal system-wide configuration file to simplify package maintainers life.
+# Also note that the label property does not include a space anymore, it has to be added by the user explicitly explicitly. It is also likely to be deprecated in the future.
+# https://github.com/vivien/i3blocks-contrib
 [bandwidth]
 interval=5
 
@@ -59,6 +64,6 @@ interval=5
 interval=5
 
 [time]
-label=
+label= 
 command=date '+%A %-d.%-m.%Y. %H:%M '
 interval=5

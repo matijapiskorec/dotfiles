@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Connect to an existing (wifi) network profile, or disconnect
+# To create a new profile for a new wifi network run wifi-menu
+
+choices="Connect to wifi\nDisconnect wifi"
+chosen=$(echo -e "$choices" | dmenu -i)
+
+case "$chosen" in
+    Connect*) wifi_network=$(netctl list | dmenu)
+              sudo -A netctl start $wifi_network ;;
+    Disconnect*) sudo -A netctl stop-all ;;
+esac

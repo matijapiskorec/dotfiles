@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Join multiple images of documents into a single pdf while performing color transformations
+# Following options seem sane enough:
+# -sigmoidal-contrast 50,50%
+# -level 30%,60%,2.5
+
+# convert -resize 50% -normalize -level 30%,60%,2.5 -page a4 "$@" output.pdf
+# convert -rotate 90 -resize 50% -normalize -level 30%,60%,2.5 -page a4 "$@" output.pdf
+convert -rotate 90 -resize 50% -page a4 "$@" output.pdf
+
+# NOTE: Error Cannot overwrite input file!
+# Assumed language of document is Croatian (change to eng for English)
+# ocrmypdf -l hrv output.pdf output.pdf
+

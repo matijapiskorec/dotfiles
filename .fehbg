@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/matija/config/theme/wallpaper/planet_beyond_clouds.jpg' 

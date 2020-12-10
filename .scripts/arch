@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# List Arch notes and open them in text editor
+filename=$(find $HOME/doc/note/archlinux-usb/*.md -type f -printf '%T@ %p\n' | sort -nr | sed 's|^[0-9]*\.[0-9]* ||g' | sed "s|$HOME/doc/note/archlinux-usb/||g" | fzf --height 40% --reverse --exact)
+if [ -n "$filename" ]; then vim $HOME/doc/note/archlinux-usb/"$filename"; fi

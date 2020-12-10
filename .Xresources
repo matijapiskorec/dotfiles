@@ -2,8 +2,12 @@ URxvt*scrollBar: false
 URxvt*colorUL: yellow
 URxvt*underlineColor: yellow
 URxvt*font: xft:Hack:size=8
+! URxvt*font: Hack:size=8
+st.font: Hack:pixelsize=14:antialias=true:autohint=true;
+st.alpha: 0.9
 
 #include "config/theme/red-blue/.Xresources"
+! #include "config/theme/gruvbox/.Xresources"
 
 ! Default fallback, in case themes above are not working
 !URxvt*foreground: White

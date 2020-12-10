@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# NOTE: This is the same script as wifi but using fzf instead of dmenu!
+# Connect to an existing (wifi) network profile, or disconnect
+# To create a new profile for a new wifi network run wifi-menu
+
+choices="Connect to wifi\nDisconnect wifi"
+chosen=$(echo -e "$choices" | fzf --height 40% --reverse)
+
+case "$chosen" in
+    Connect*) wifi_network=$(netctl list | fzf --height 40% --reverse)
+              sudo netctl start $wifi_network ;;
+    Disconnect*) sudo netctl stop-all ;;
+esac

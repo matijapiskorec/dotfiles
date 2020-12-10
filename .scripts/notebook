@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Choose a kernel then run jupyter notebook server in notebook directory
+# Set the shebang of this script to bash (otherwise there are problems when running from fish shell)
+
+# NOTE: Because the sourcing of the environment is run in a script, the environment does not persist
+# in the shell that invoked the script. In order to do this you have to put it into a function and source
+# it at shell startup (for example, in .bashrc if using bash).
+
+notebookdir=$HOME
+envdir=$(find $HOME/dev/env/ -maxdepth 1 -type d | fzf --height 40% --reverse)
+source $envdir/bin/activate
+nohup jupyter notebook --notebook-dir=$notebookdir &> $HOME/tmp/log/nohup.out &
+

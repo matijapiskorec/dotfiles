@@ -46,7 +46,8 @@ bindsym $mod+Shift+x move scratchpad
 bindsym $mod+x scratchpad show
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal -e fish
+# bindsym $mod+Return exec i3-sensible-terminal -e fish
+bindsym $mod+Return exec st -e fish
 
 # kill focused window
 bindsym $mod+Shift+q kill

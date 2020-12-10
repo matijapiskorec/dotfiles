@@ -1,0 +1,13 @@
+#!/bin/sh
+
+query=$(echo $1 | sed "s| |+|g")
+
+# No video!
+# wget -qO- "https://youtube.com/results?search_query=$query" | grep -o "watch?v=[[:alnum:]]\{11\}" | fzf --height 40% --reverse -m | sed "s|^|https://youtube.com/|g" | mpv --no-video --loop-playlist --playlist=-
+
+# Video!
+wget -qO- "https://youtube.com/results?search_query=$query" | grep -o "watch?v=[[:alnum:]]\{11\}" | fzf --height 40% --reverse -m | sed "s|^|https://youtube.com/|g" | mpv --loop-playlist --playlist=-
+
+# TODO: Show titles instead of watch id's!
+# Extract titles in quotes and watch id's alternativelly (sometimes there are two titles one next to other!)
+# grep -o "watch?v=[[:alnum:]]\{11\}\|\"title\":{\"runs\":\[{\"text\":\"[^\"]*\""

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Search through all music and then play the selected songs in mpv
+# Multiple songs can be selected with Tab
+# Playlist will be looped until script is explicitly terminated
+
+musicdir=$HOME/media/music/
+header="Searching in $musicdir. Select multiple songs with Tab."
+songname=$(find $musicdir -type f | sed "s|$musicdir||g" | fzf --height 40% --reverse --exact -m --header="$header" | sed "s|^|$musicdir|g")
+if [ -n "$songname" ]; then echo "$songname" | mpv --no-video --loop-playlist --playlist=- ; fi
+

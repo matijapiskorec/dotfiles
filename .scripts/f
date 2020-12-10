@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# List all files in a directory and upon selection run them with fzf
+# In case of a directory cd into it
+temp=$(ls -at | fzf --height 40% --reverse)
+if (test -d "$temp"); then
+	cd "$temp"
+else
+	rifle "$temp" -f f
+fi

@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Search all pdf's within a folder, refine it with fzf and then open it in Zathura
+
+
+if [ "$#" -lt 2 ]
+then
+	echo "Use pdfsearch like this: pdfsearch ~/directory keyword" 
+else
+    pdfdir=$2
+    keyword=$1
+
+	# Fuzzy search within ALL lines on all extracted text
+
+    # Without named pipes - slower because pdfgrep search has to finish before we can view the pdf!
+    # This is because pdfgrep apparently does not react to SIGPIPE and does not terminate!
+	# header="Searching pdf's within $pdfdir for keyword '$1'"
+    # line=$(pdfgrep -irnHm 10 "$keyword" "$pdfdir" --color always --cache | 
+           # sed "s|$pdfdir||g" | 
+           # fzf --height 40% --reverse --exact --header="$header" --ansi )
+	# pdfname=$(echo "$line" | cut -d: -f1)
+	# linenumber=$(echo "$line" | cut -d: -f2)
+	# if [ -n "$pdfname" ]; then zathura --fork -P $linenumber "$pdfdir$pdfname" &>/dev/null; fi
+
+    # With named pipes - faster because closing of a named pipe terminates pdfgrep!
+	header="Searching pdf's within $pdfdir for keyword '$1'"
+    mkfifo /tmp/pipe
+    pdfgrep -irnHm 10 "$keyword" "$pdfdir" --color always --cache | sed "s|$pdfdir||g" > /tmp/pipe &
+    line=$(fzf --height 40% --reverse --exact --header="$header" --ansi < /tmp/pipe)
+    rm /tmp/pipe
+	pdfname=$(echo "$line" | cut -d: -f1)
+	linenumber=$(echo "$line" | cut -d: -f2)
+	if [ -n "$pdfname" ]; then zathura --fork -P $linenumber "$pdfdir$pdfname" &>/dev/null; fi
+
+fi
+

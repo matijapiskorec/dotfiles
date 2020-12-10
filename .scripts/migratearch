@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Gives a dmenu prompt to mount Corsair Voyager GTX with Arch Linux installation and synchronize it with the local installation
+# Corsair Voyager needs to be plugged in
+# Assumption is that the local Arch Linux installation is booted, not the one on the USB drive!
+
+# $(now) is a bash alias for $(date +%Y%m%d%H%M)
+
+pgrep -x dmenu && exit
+
+migrateusb() { \
+	chosen="$(echo "$usbdrives" | dmenu -i -p "Select drive for migration" | awk '{print $1}')"
+	sudo -A mount $chosen"3" /mnt/ 
+	sudo -A mount $chosen"2" /mnt/boot/
+	choice="Disk to USB\nUSB to disk"
+	direction=$(echo -e "$choice" | dmenu -i -p "Which direction?")
+	timestamp=$(date +%Y%m%d%H%M)
+	case "$direction" in
+		Disk*) 
+			sudo -A rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab","/var/lib/dhcpcd/proc/*","/var/lib/dhcpcd/sys/*"} --delete / /mnt/ > ~/tmp/log/"$timestamp"-migrate-disk-usb.txt ;
+            sudo -A arch-chroot /mnt mkinitcpio -p linux-lts >> ~/tmp/log/"$timestamp"-migrate-disk-usb.txt ;
+            sudo -A arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg >> ~/tmp/log/"$timestamp"-migrate-disk-usb.txt ;
+			notify-send "Finished migrating disk to USB!" ;;
+		USB*) 
+			sudo -A rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab","/var/lib/dhcpcd/proc/*","/var/lib/dhcpcd/sys/*"} --delete /mnt/ / > ~/tmp/log/"$timestamp"-migrate-usb-disk.txt ;
+            sudo -A mkinitcpio -p linux-lts >> ~/tmp/log/"$timestamp"-migrate-usb-disk.txt ;
+            sudo -A grub-mkconfig -o /boot/grub/grub.cfg >> ~/tmp/log/"$timestamp"-migrate-usb-disk.txt ;
+			notify-send "Finished migrating USB to disk!" ;;
+	esac
+	sudo -A umount /mnt/boot/ /mnt/
+}
+
+usbdrives="$(lsblk -rpo "name,type,size,mountpoint,model" | awk '$2=="disk"&&$4=="Corsair_Voyager_GTX"{printf "%s (%s) %s\n",$1,$3,$4}')"
+
+# In case of drive (and not part) the mountpoint is empty and so model becomes $4 and not $5!
+
+if [ -z "$usbdrives" ]; then
+	notify-send "No USB drive detected" --expire-time=2000
+else
+	migrateusb
+fi

@@ -8,9 +8,12 @@ export SUDO_ASKPASS="$HOME/.scripts/dpass"
 export SSH_ASKPASS="$HOME/.scripts/dpass"
 
 xset s off -dpms
+
 setxkbmap hr
+setxkbmap -option caps:swapescape
+
 feh --bg-fill ~/config/theme/wallpaper/planet_beyond_clouds.jpg
-compton -CGb
+# compton -CGb # Disable compton because of the flickering artefacts during screen capture with ffmpeg
 unclutter &
 dunst &
 exec i3
