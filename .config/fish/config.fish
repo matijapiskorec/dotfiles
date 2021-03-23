@@ -13,6 +13,7 @@ alias tsd 'transmission-daemon'
 alias tsr 'transmission-remote'
 alias vifm 'vifmrun'
 alias dwdiff 'dwdiff -P --color=red,blue'
+alias ldg 'ledger --date-format "%Y/%m/%d" -f ~/doc/note/evernote/ledger.dat'
 
 set fish_greeting
 

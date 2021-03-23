@@ -20,6 +20,7 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/dev/repo/dotfiles --work-tree=$HOME
 alias exa='exa -l --git'
 alias tsd='transmission-daemon'
 alias tsr='transmission-remote'
+alias ldg='ledger --date-format "%Y/%m/%d" -f ~/doc/note/evernote/ledger.dat'
 
 # Cool colored prompt (git removed because we have it bellow)
 # https://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors

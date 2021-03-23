@@ -24,6 +24,7 @@ Plugin 'nvie/vim-flake8'
 " Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'junegunn/fzf.vim'
 " Plugin 'terryma/vim-multiple-cursors'
+Plugin 'ledger/vim-ledger'
 
 " For Markdown
 " Plugin 'godlygeek/tabular'
@@ -172,12 +173,12 @@ if !empty($TMUX) " tmux needs special configuration for cursor
 endif
 
 " Move lines up and down, similar to Sublime (not working!)
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+" nnoremap <A-j> :m .+1<CR>==
+" nnoremap <A-k> :m .-2<CR>==
+" inoremap <A-j> <Esc>:m .+1<CR>==gi
+" inoremap <A-k> <Esc>:m .-2<CR>==gi
+" vnoremap <A-j> :m '>+1<CR>gv=gv
+" vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Set vertical divider
 set fillchars=vert:\ ,fold:-
@@ -203,7 +204,10 @@ let g:livepreview_previewer = 'zathura'
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap <C-n> :tabnew<CR>
-nnoremap <C-c> :bd!<CR>
+
+" Close buffer without confirmation, if it's the last one then exit Vim
+nnoremap <expr> <C-c> len(getbufinfo({'buflisted':1}))>1 ? ':bd!<CR>' : ':q!<CR>'
+" nnoremap <C-c> :bd!<CR>
 " nnoremap <C-c> :bp<bar>bd#<CR>
 
 " open new split panes to right and bottom, which feels more natural than Vim default
@@ -274,4 +278,11 @@ function! CopyMatches(reg)
   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
 command! -register CopyMatches call CopyMatches(<q-reg>)
+
+" Recognize .dat files as ledger filetype
+au BufReadPost *.dat set syntax=ledger
+
+" Ctrl-j/k inserts blank line below/above
+nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
