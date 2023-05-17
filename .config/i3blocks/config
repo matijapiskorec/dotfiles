@@ -29,8 +29,12 @@ command=~/.scripts/statusbar/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+# Not working for some reason?!
+# [crypto]
+# interval=10
+
 [memory]
-label= 
+# label= 
 interval=10
 
 [disk]
@@ -64,6 +68,7 @@ interval=5
 interval=5
 
 [time]
-label= 
+# label= 
 command=date '+%A %-d.%-m.%Y. %H:%M '
 interval=5
+

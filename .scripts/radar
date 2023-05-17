@@ -1,6 +1,8 @@
 #!/bin/sh
 
+# NOT WORKING ANYMORE!
 # Load composite radar gif from meteo.hr and play it in mpv
+# mpv --loop-file=inf "http://vrijeme.hr/kompozit-anim.gif"
 
-mpv --loop-file=inf "http://vrijeme.hr/kompozit-anim.gif"
+feh --scale-down --auto-zoom "http://vrijeme.hr/kompozit-stat.png"
 

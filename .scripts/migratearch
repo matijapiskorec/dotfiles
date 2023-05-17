@@ -30,7 +30,9 @@ migrateusb() { \
 	sudo -A umount /mnt/boot/ /mnt/
 }
 
-usbdrives="$(lsblk -rpo "name,type,size,mountpoint,model" | awk '$2=="disk"&&$4=="Corsair_Voyager_GTX"{printf "%s (%s) %s\n",$1,$3,$4}')"
+# As of August 2021 something changed in the name of the drive, it became "Corsair\x20Voyager\x20GTX", so additional sed command is needed!
+# usbdrives="$(lsblk -rpo "name,type,size,mountpoint,model" | awk '$2=="disk"&&$4=="Corsair_Voyager_GTX"{printf "%s (%s) %s\n",$1,$3,$4}')"
+usbdrives="$(lsblk -rpo "name,type,size,mountpoint,model" | sed "s|\\\x20|_|g" | awk '$2=="disk"&&$4=="Corsair_Voyager_GTX"{printf "%s (%s) %s\n",$1,$3,$4}')"
 
 # In case of drive (and not part) the mountpoint is empty and so model becomes $4 and not $5!
 

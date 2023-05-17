@@ -8,6 +8,7 @@ st.alpha: 0.9
 
 #include "config/theme/red-blue/.Xresources"
 ! #include "config/theme/gruvbox/.Xresources"
+! #include "config/theme/badwolf/.Xresources"
 
 ! Default fallback, in case themes above are not working
 !URxvt*foreground: White

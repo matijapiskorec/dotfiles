@@ -29,6 +29,9 @@ font pango:monospace 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Set the minimim and maximum floating window size (in pixels) with width x height
+# floating_minimum_size 1100 x 900
+# floating_maximum_size 1100 x 900
 
 # Scratchpad window for basic arithmetic in Python
 # https://www.youtube.com/watch?v=q-l7DnDbiiU
@@ -212,9 +215,9 @@ gaps outer 5
 # new_window pixel 0
 
 # Widows have no title bar but do have a minimal border
-# new_window pixel 1
-new_window pixel 2
-
+# new_window pixel 2
+default_border pixel 2
+default_floating_border pixel 2
 
 # Pywal setup
 # Set colors from Xresources

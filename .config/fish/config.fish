@@ -14,8 +14,11 @@ alias tsr 'transmission-remote'
 alias vifm 'vifmrun'
 alias dwdiff 'dwdiff -P --color=red,blue'
 alias ldg 'ledger --date-format "%Y/%m/%d" -f ~/doc/note/evernote/ledger.dat'
+alias onedrive-evo 'onedrive --confdir="~/.config/onedrive-DrustvoEVO"'
+alias onedrive-uzh 'onedrive --confdir="~/.config/onedrive-UZH"'
 
 set fish_greeting
 
 set -x EDITOR vim
 set -x NNN_OPENER rifle
+
